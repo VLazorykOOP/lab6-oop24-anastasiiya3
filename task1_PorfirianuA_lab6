@@ -1,0 +1,67 @@
+#include <iostream>
+using namespace std; 
+
+class Base { 
+public:
+    int base_data;
+    Base() : base_data(10) {}
+};
+
+class Derived1 : public Base {
+public:
+    int derived1_data;
+    Derived1() : derived1_data(20) {}
+};
+
+class Derived2 : public Base {
+public:
+    int derived2_data;
+    Derived2() : derived2_data(30) {}
+};
+
+class Final : public Derived1, public Derived2 {
+public:
+    int final_data;
+    Final() : final_data(40) {}
+};
+
+int main() {
+    Final obj;
+    cout << "Розмір Final (без virtual): " << sizeof(obj) << " байт" << endl;
+    return 0;
+}
+Віртуальне успадкування
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    int base_data;
+    Base() : base_data(10) {}
+};
+
+class Derived1 : virtual public Base {
+public:
+    int derived1_data;
+    Derived1() : derived1_data(20) {}
+};
+
+class Derived2 : virtual public Base {
+public:
+    int derived2_data;
+    Derived2() : derived2_data(30) {}
+};
+
+class Final : public Derived1, public Derived2 {
+public:
+    int final_data;
+    Final() : final_data(40) {}
+};
+
+int main() {
+    Final obj;
+    cout << "Розмір Final (з virtual): " << sizeof(obj) << " байт" << endl;
+    return 0;
+}
+Footer
+© 2025 GitHub
