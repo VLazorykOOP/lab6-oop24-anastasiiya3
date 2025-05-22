@@ -1,0 +1,51 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Shape {
+public:
+    virtual double volume() const = 0;
+    virtual ~Shape() {}
+};
+
+class Parallelepiped : public Shape {
+    double x, y, z;
+public:
+    Parallelepiped(double x, double y, double z) : x(x), y(y), z(z) {}
+    double volume() const override { return x * y * z; }
+};
+
+class Pyramid : public Shape {
+    double x, y, h;
+public:
+    Pyramid(double x, double y, double h) : x(x), y(y), h(h) {}
+    double volume() const override { return (x * y * h) / 3; }
+};
+
+class Tetrahedron : public Shape {
+    double a;
+public:
+    Tetrahedron(double a) : a(a) {}
+    double volume() const override { return pow(a, 3) * sqrt(2) / 12; }
+};
+
+class Sphere : public Shape {
+    double r;
+public:
+    Sphere(double r) : r(r) {}
+    double volume() const override { return 4 * M_PI * pow(r, 3) / 3; }
+};
+
+int main() {
+    Parallelepiped p(1, 2, 3);
+    Pyramid py(1, 2, 3);
+    Tetrahedron t(1);
+    Sphere s(1);
+
+    cout << "Об'єм паралелепіпеда: " << p.volume() << endl;
+    cout << "Об'єм піраміди: " << py.volume() << endl;
+    cout << "Об'єм тетраедра: " << t.volume() << endl;
+    cout << "Об'єм кулі: " << s.volume() << endl;
+
+    return 0;
+}
