@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Software {
+protected:
+    string name;
+    string version;
+public:
+    Software(const string& n, const string& v) : name(n), version(v) {}
+    virtual ~Software() { cout << "Software destructor: " << name << endl; }
+    virtual void print() const { cout << name << " (v" << version << ")"; }
+};
+
+class Application : virtual public Software {
+    string category;
+public:
+    Application(const string& n, const string& v, const string& c) 
+        : Software(n, v), category(c) {}
+    ~Application() override { cout << "Application destructor: " << name << endl; }
+    void print() const override {
+        Software::print();
+        cout << ", Category: " << category;
+    }
+};
+
+class SystemSoftware : virtual public Software {
+    string purpose;
+public:
+    SystemSoftware(const string& n, const string& v, const string& p) 
+        : Software(n, v), purpose(p) {}
+    ~SystemSoftware() override { cout << "SystemSoftware destructor: " << name << endl; }
+    void print() const override {
+        Software::print();
+        cout << ", Purpose: " << purpose;
+    }
+};
+
+class OS : public Application, public SystemSoftware {
+    string kernel;
+public:
+    OS(const string& n, const string& v, const string& c, const string& p, const string& k)
+        : Software(n, v), Application(n, v, c), SystemSoftware(n, v, p), kernel(k) {}
+    ~OS() override { cout << "OS destructor: " << name << endl; }
+    void print() const override {
+        Application::print();
+        cout << ", ";
+        SystemSoftware::print();
+        cout << ", Kernel: " << kernel << endl;
+    }
+};
+
+int main() {
+    OS os("Linux", "5.15", "OS", "System Management", "Monolithic");
+    os.print();
+    return 0;
+}
