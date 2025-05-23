@@ -1,45 +1,14 @@
 #include <iostream>
-using namespace std; 
-
-class Base { 
-public:
-    int base_data;
-    Base() : base_data(10) {}
-};
-
-class Derived1 : public Base {
-public:
-    int derived1_data;
-    Derived1() : derived1_data(20) {}
-};
-
-class Derived2 : public Base {
-public:
-    int derived2_data;
-    Derived2() : derived2_data(30) {}
-};
-
-class Final : public Derived1, public Derived2 {
-public:
-    int final_data;
-    Final() : final_data(40) {}
-};
-
-int main() {
-    Final obj;
-    cout << "Розмір Final (без virtual): " << sizeof(obj) << " байт" << endl;
-    return 0;
-}
-Віртуальне успадкування
-#include <iostream>
 using namespace std;
 
+// Базовий клас
 class Base {
 public:
     int base_data;
     Base() : base_data(10) {}
 };
 
+// Похідні класи з віртуальним успадкуванням
 class Derived1 : virtual public Base {
 public:
     int derived1_data;
@@ -52,6 +21,7 @@ public:
     Derived2() : derived2_data(30) {}
 };
 
+// Фінальний клас, що успадковує від обох похідних
 class Final : public Derived1, public Derived2 {
 public:
     int final_data;
@@ -59,7 +29,19 @@ public:
 };
 
 int main() {
-    Final obj;
-    cout << "Розмір Final (з virtual): " << sizeof(obj) << " байт" << endl;
+    Final f;
+    
+    // Доступ до даних через фінальний об'єкт
+    cout << "Base data: " << f.base_data << endl;
+    cout << "Derived1 data: " << f.derived1_data << endl;
+    cout << "Derived2 data: " << f.derived2_data << endl;
+    cout << "Final data: " << f.final_data << endl;
+    
+    // Розміри об'єктів
+    cout << "Size of Base: " << sizeof(Base) << endl;
+    cout << "Size of Derived1: " << sizeof(Derived1) << endl;
+    cout << "Size of Derived2: " << sizeof(Derived2) << endl;
+    cout << "Size of Final: " << sizeof(Final) << endl;
+    
     return 0;
 }
